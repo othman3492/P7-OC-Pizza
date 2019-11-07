@@ -9,10 +9,7 @@ CREATE TABLE public.Ingredient (
 CREATE TABLE public.Product (
                 productID INTEGER NOT NULL,
                 name VARCHAR NOT NULL,
-                description VARCHAR,
-                imageURL VARCHAR,
                 price NUMERIC(2) NOT NULL,
-                quantity INTEGER NOT NULL,
                 CONSTRAINT product_pk PRIMARY KEY (productID)
 );
 
@@ -21,7 +18,7 @@ CREATE TABLE public.Basket (
                 productID INTEGER NOT NULL,
                 orderID INTEGER NOT NULL,
                 quantity INTEGER NOT NULL,
-                CONSTRAINT basket_pk PRIMARY KEY (productID)
+                CONSTRAINT basket_pk PRIMARY KEY (productID, orderID)
 );
 
 
@@ -33,13 +30,13 @@ CREATE TABLE public.Composition (
 );
 
 
-CREATE TABLE public.AppUser (
+CREATE TABLE public.User (
                 userID INTEGER NOT NULL,
                 firstName VARCHAR NOT NULL,
                 lastName VARCHAR NOT NULL,
                 password VARCHAR NOT NULL,
                 isEmployee BOOLEAN NOT NULL,
-                CONSTRAINT appuser_pk PRIMARY KEY (userID)
+                CONSTRAINT user_pk PRIMARY KEY (userID)
 );
 
 
@@ -80,7 +77,6 @@ CREATE SEQUENCE public.order_orderid_seq;
 CREATE TABLE public.Order (
                 orderID INTEGER NOT NULL DEFAULT nextval('public.order_orderid_seq'),
                 userID INTEGER NOT NULL,
-                productID INTEGER NOT NULL,
                 restaurantID INTEGER NOT NULL,
                 date TIMESTAMP NOT NULL,
                 state INTEGER NOT NULL,
